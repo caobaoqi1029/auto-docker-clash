@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+   # Clash
+  clash:
+    image: dreamacro/clash:latest
+    container_name: clash
+    volumes:
+      - ./configs/clash.yaml:/root/.config/clash/config.yaml
+    ports:
+      - "7890:7890/tcp"
+      - "7890:7890/udp"
+      - "9090:9090"
+    restart: always
+
+  clash-dashboard:
+    image:  haishanh/yacd:latest
+    container_name: clash-dashboard
+    ports:
+      - "7880:80"
+    depends_on:
+      - clash
+    restart: always
+
